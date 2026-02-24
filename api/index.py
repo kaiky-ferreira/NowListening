@@ -66,15 +66,33 @@ class handler(BaseHTTPRequestHandler):
 
         cor_destaque = "#FF0000" if now_listening else "#555555"
         status_texto = "LISTENING NOW..." if now_listening else "LAST SEEN..."
-        gif_base64 = "data:image/gif;base64,R0lGODlhIAAPAPAAAP///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAAACwAAAAAIAAPAAACJ4yPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3r+s4FACH5BAkIAAAALAAAAAAgAA8AAAIojI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jev6zgUAIfkECQgAAAAsAAAAACAADwAAAiWMj6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4Lx/JM1/aN6/rOBQAh+QQJCAAAACwAAAAAIAAPAAACJIyPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3r+s4FACH5BAkIAAAALAAAAAAgAA8AAAIljI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jev6zgUAIfkECQgAAAAsAAAAACAADwAAAiSMj6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4Lx/JM1/aN6/rOBQA7"
-        equalizer_animado = f'<image x="230" y="22" width="30" height="15" href="{gif_base64}"/>' if now_listening else ""
+        equalizer_animado = f"""
+        <g transform="translate(245, 23)">
+            <rect x="0" y="5" width="3" height="10" fill="{cor_destaque}">
+                <animate attributeName="height" values="5;15;5" dur="1s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="10;0;10" dur="1s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="5" y="0" width="3" height="15" fill="{cor_destaque}">
+                <animate attributeName="height" values="15;5;15" dur="0.8s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="0;10;0" dur="0.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="10" y="8" width="3" height="7" fill="{cor_destaque}">
+                <animate attributeName="height" values="7;15;7" dur="1.2s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="8;0;8" dur="1.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="15" y="2" width="3" height="13" fill="{cor_destaque}">
+                <animate attributeName="height" values="13;4;13" dur="0.9s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="2;11;2" dur="0.9s" repeatCount="indefinite"/>
+            </rect>
+        </g>
+        """ if now_listening else ""
 
         svg_code = f"""
         <svg width="400" height="120" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="396" height="116" fill="#0D1117" stroke="{cor_destaque}" stroke-width="2" rx="10"/>
 
         <image x="15" y="15" width="90" height="90" href="{image_base64}" clip-path="inset(0% round 6px)"/>
-        {equalizer_animado}
+        {equalizer_animado}     
 
         <style>
             .titulo {{ font-family: monospace; font-size: 12px; fill: {cor_destaque}; font-weight: bold; }}
