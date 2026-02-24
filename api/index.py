@@ -88,7 +88,7 @@ class handler(BaseHTTPRequestHandler):
         """ if now_listening else ""
 
         svg_code = f"""
-        <svg width="700" height="120" xmlns="http://www.w3.org/2000/svg">
+        <svg width="400" height="120" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="396" height="116" fill="#0D1117" stroke="{cor_destaque}" stroke-width="2" rx="2"/>
 
         <image x="15" y="15" width="90" height="90" href="{image_base64}" clip-path="inset(0% round 6px)"/>
@@ -115,10 +115,3 @@ class handler(BaseHTTPRequestHandler):
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
         self.wfile.write(svg_code.encode("utf-8"))
-
-if __name__ == "__main__":
-    from http.server import HTTPServer
-    port = 8000
-    server = HTTPServer(('localhost', port), handler)
-
-    server.serve_forever()
